@@ -11,9 +11,19 @@ call textobj#user#plugin('slash', {
 \    })
 
 function! s:select_a()
+  let initial_pos = getpos('.')
   normal! F/
 
   let end_pos = getpos('.')
+  call cursor(initial_pos[1],initial_pos[2])
+
+  normal! F 
+
+  let end_pos_space = getpos('.')
+
+  if end_pos_space[2] < end_pos[2]
+    let end_pos = end_pos_space
+  endif
 
   normal! f/
 
@@ -39,6 +49,16 @@ function! s:select_i()
   normal! t/
 
   let end_pos = getpos('.')
+
+  call cursor(initial_pos[1],initial_pos[2])
+
+  normal! t 
+
+  let end_pos_space = getpos('.')
+
+  if end_pos_space[2] < end_pos[2]
+    let end_pos = end_pos_space
+  endif
 
   if end_pos == start_pos
     normal! e
